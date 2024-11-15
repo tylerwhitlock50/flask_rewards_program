@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: ./flask  # Point to the /flask directory where your Dockerfile is located
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # Map port 5000 on the host to port 5000 in the container
+    volumes:
+      - ./flask:/app  # Mount the /flask directory into the container
+      - ./flask/instance:/app/instance  # Persist SQLite database
+    environment:
+      FLASK_ENV: development  # Ensure Flask runs in development mode
+      FLASK_APP: run.py  # Correctly point to the app's entry point
+    command: flask run --host=0.0.0.0

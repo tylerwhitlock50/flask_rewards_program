@@ -1,0 +1,118 @@
+    {% extends 'base.html' %}
+    {% block title %} User Dashboard {% endblock %}
+
+    {% block styles %}
+    .card {
+        --bs-card-spacer-y: 1rem;
+        --bs-card-spacer-x: 1rem;
+        --bs-card-title-spacer-y: 0.5rem;
+        --bs-card-title-color: ;
+        --bs-card-subtitle-color: ;
+        --bs-card-border-width: var(--bs-border-width);
+        --bs-card-border-color: var(--bs-border-color-translucent);
+        --bs-card-border-radius: var(--bs-border-radius);
+        --bs-card-box-shadow: ;
+        --bs-card-inner-border-radius: calc(var(--bs-border-radius) -(var(--bs-border-width)));
+        --bs-card-cap-padding-y: 0.5rem;
+        --bs-card-cap-padding-x: 1rem;
+        --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+        --bs-card-cap-color: ;
+        --bs-card-height: ;
+        --bs-card-color: ;
+        --bs-card-bg: var(--bs-body-bg);
+        --bs-card-img-overlay-padding: 1rem;
+        --bs-card-group-margin: 0.75rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        height: var(--bs-card-height);
+        color: var(--bs-body-color);
+        word-wrap: break-word;
+        background-color: var(--bs-card-bg);
+        background-clip: border-box;
+        border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+        border-radius: var(--bs-card-border-radius);
+        margin-top: 20px;
+    }
+    {% endblock %}
+
+    {% block content %}
+    <div class="container md-10">
+        <div class="column">
+            <!-- User Info Card -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Welcome, {{ user.username }}!</h4>
+                        <p class="card-text">
+                            Email: <strong>{{ user.email }}</strong><br>
+                            Points Balance: <strong>{{ user.get_point_balance() }}</strong><br>
+                            Points Expiring Soon: <strong>{{ expiring_points['expiring_points'] }}</strong>
+                        </p>
+                        <a href="{{ url_for('points_bp.earn_points') }}" class="btn btn-primary">Earn Points</a>
+                        <a href="/" class="btn btn-secondary">Redeem Points</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Top Earners Chart -->
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Top Point Earners (This Year)</h5>
+                        <canvas id="topEarnersChart"></canvas>
+                    </div>
+                </div>
+    
+                <!-- Monthly Points Chart -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Your Points Earned by Month (Last 12 Months)</h5>
+                        <canvas id="pointsByMonthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Activity -->
+     <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Recent Activity</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in recent_activity %}
+                    <tr>
+                        <td>{{ activity.description }}</td>
+                        <td>{{ activity.added_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>{{ activity.original_points }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        </div>
+        
+    </div>
+
+     
+    {% endblock %}
+
+
+    {% block scripts %}
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script>
+        const earners = {{ top_earners | tojson }};
+        const pointsByMonth = {{ points_by_month | tojson }};
+        renderEarningChart(earners);
+        renderPointsByMonthChart(pointsByMonth);
+    </script>
+    {% endblock %}
+

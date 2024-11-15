@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 0px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    flex-direction: column;
+    padding: 20px;
+}
+
+main{
+    margin-top: 40px;
+    vertical-align: center;
+}
+container-vertially-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 0px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    flex-direction: column;
+}

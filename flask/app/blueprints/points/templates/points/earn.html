@@ -1,0 +1,29 @@
+
+
+{% extends "base.html" %}
+{% block title %}Earn{% endblock %}
+{% block styles %}
+    .btn-primary {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+{% endblock %}
+
+{% block content %}
+    <h1>Enter Code and Upload Receipt</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.code.label }}
+            {{ form.code(class="form-control") }}
+        </div>
+        <div>
+            {{ form.receipt.label }}
+            {{ form.receipt(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+    </form>
+{% endblock %}
+

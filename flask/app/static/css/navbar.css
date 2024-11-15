@@ -1,0 +1,52 @@
+.header-custom {
+    width: 100%;
+    position: relative; /* Ensures it stays in the normal document flow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow */
+}
+
+.navbar {
+    width: 100%;
+    margin: 0;
+    padding: 1rem;
+}
+
+.container-fluid {
+    padding-left: 0; /* Ensure it aligns flush to the edges */
+    padding-right: 0;
+}
+
+.header-custom {
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetics */
+}
+
+.image-box {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-grow: 1;
+    max-height: 60px; /* Set a maximum height for the image container */
+}
+
+.logo {
+    max-height: 50px; /* Adjust the maximum height of the logo */
+    width: auto; /* Maintain aspect ratio */
+}
+
+.navbar-brand {
+    margin-right: 1rem;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .image-box {
+        max-height: 40px; /* Smaller height for smaller screens */
+    }
+
+    .logo {
+        max-height: 30px;
+    }
+}
