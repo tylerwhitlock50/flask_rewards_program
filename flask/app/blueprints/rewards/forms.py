@@ -1,10 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, FileField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Length, Optional
+from wtforms.validators import DataRequired, Length
 from flask_wtf.file import FileRequired, FileAllowed
 
 class EarnPointsForm(FlaskForm):
-
     predefined_code = SelectField(
         'Select Code',
         choices=[
@@ -14,10 +13,11 @@ class EarnPointsForm(FlaskForm):
         ],
         validators=[DataRequired(message="Please select a code.")]
     )
+
     code = StringField(
         'Enter Code', 
         validators=[
-            Optional(),
+            DataRequired(message="Code is required."),
             Length(max=20, message="Code must be 20 characters or fewer.")
         ]
     )

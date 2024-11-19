@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Review Receipts{% endblock %}
+{% block content %}
+    <h1>Receipt Review</h1>
+    <div class="container">
+        <div class="row">
+            <!-- User Details -->
+            <div class="col-md-6">
+                <div class="user-details">
+                    <h3>User Details</h3>
+                    <p><strong>First Name:</strong> {{ log.user.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ log.user.last_name }}</p>
+                    <p><strong>Company:</strong> {{ log.user.retailer.name }}</p>
+                    <p><strong>Email:</strong> {{ log.user.email }}</p>
+                    <p><strong>Current Point Balance:</strong> {{ log.user.get_point_balance() }}</p>
+                </div>
+            </div>
+    
+            <!-- Receipt Details -->
+            <div class="col-md-6">
+                <div class="receipt-details">
+                    <h3>Receipt Details</h3>
+                    <p><strong>Date Submitted:</strong> {{ log.added_date.strftime('%Y-%m-%d') }}</p>
+                    <p><strong>Description:</strong> {{ log.description }}</p>
+                    <p><strong>Original Points:</strong> {{ log.original_points }}</p>
+                    <p><strong>Available Points:</strong> {{ log.points }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid centered" style=" display: flex; justify-content: center; align-items: center;">
+        <form method="POST" class="mt-4">
+            <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+            <button type="submit" name="action" value="deny" class="btn btn-danger">Deny</button>
+        </form>
+    </div>
+
+    <div class="receipt-image mt-4">
+        <h3>Receipt Image</h3>
+        <img src="{{ url_for('static', filename=log.file_reference.split('static/')[-1].replace('\\', '/')) }}" alt="Receipt Image" class="img-fluid" />
+    </div>
+
+
+{% endblock %}

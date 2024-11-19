@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Edit Transaction{% endblock %}
+{% block content %}
+    <h1>Edit Transaction</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.original_points.label(class="form-label") }}
+            {{ form.original_points(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.description.label(class="form-label") }}
+            {{ form.description(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+    </form>
+{% endblock %}

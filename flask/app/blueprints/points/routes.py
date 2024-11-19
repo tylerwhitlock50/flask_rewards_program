@@ -15,7 +15,13 @@ def earn_points():
     form = EarnPointsForm()  # Instantiate the form
 
     if form.validate_on_submit():
-        code_str = form.code.data
+        
+        predefined_code = form.predefined_code.data
+        if predefined_code == 'OTHER':
+            code_str = form.code.data
+        else:
+            code_str = predefined_code
+
         receipt_file = form.receipt.data
 
         # Validate the code
@@ -46,12 +52,12 @@ def earn_points():
 
         # Log points for the current user
         try:
-            current_user.log_points(code_str)
+            current_user.log_points(code_str, file_path)
             flash(f"Points successfully added for code {code_str}.", "success")
         except ValueError as e:
             flash(str(e), "danger")
 
         return redirect(url_for('dashboard.dashboard'))
 
-    return render_template('points/earn.html', form=form)
+    return render_template('points/earn.html', form=form, errors=form.errors)
 

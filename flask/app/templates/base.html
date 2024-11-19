@@ -34,12 +34,12 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <div class = "container-vertially-centered">
-    <!-- Main Content -->
-    <main class="align-items-center justify-content-center" style="min-height: 100vh;">
+    <!-- Main Content This is the Div that causes problems  -->
+    <div class = "container-vertially-centered container-fluid" style="max-width: 800px;">
+            <!-- Main Content -->
+    <main class="align-items-center justify-content-center container-fluid" style="min-height: 100vh;">
         {% block content %}{% endblock %}
     </main>
-    <div class = "container"></div>
 
 
     

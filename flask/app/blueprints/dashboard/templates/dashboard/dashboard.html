@@ -38,20 +38,20 @@
     {% endblock %}
 
     {% block content %}
-    <div class="container md-10">
+    <div class="container-fluid">
         <div class="column">
             <!-- User Info Card -->
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <h4 class="card-title">Welcome, {{ user.username }}!</h4>
+                    <div class="card-body text-left">
+                        <h3 class="card-title">Welcome, {{ user.username }}!</h4>
                         <p class="card-text">
                             Email: <strong>{{ user.email }}</strong><br>
                             Points Balance: <strong>{{ user.get_point_balance() }}</strong><br>
                             Points Expiring Soon: <strong>{{ expiring_points['expiring_points'] }}</strong>
                         </p>
                         <a href="{{ url_for('points_bp.earn_points') }}" class="btn btn-primary">Earn Points</a>
-                        <a href="/" class="btn btn-secondary">Redeem Points</a>
+                        <a href="{{ url_for('rewards_bp.redeem_points')}}" class="btn btn-secondary">Redeem Points</a>
                     </div>
                 </div>
             </div>
@@ -88,9 +88,10 @@
                 <tbody>
                     {% for activity in recent_activity %}
                     <tr>
+                        <td>{{ activity.date.strftime('%Y-%m-%d') }}</td>
                         <td>{{ activity.description }}</td>
-                        <td>{{ activity.added_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                        <td>{{ activity.original_points }}</td>
+                        <td>{{ activity.points }}</td>
+                        <td>{{ activity.activity_type|capitalize }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

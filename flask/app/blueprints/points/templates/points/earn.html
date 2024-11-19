@@ -15,8 +15,13 @@
 
     <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        <div>
-            {{ form.code.label }}
+        <div class="mb-3">
+            {{ form.predefined_code.label(class="form-label") }}
+            {{ form.predefined_code(class="form-select") }}
+        </div>
+    
+        <div class="mb-3" id="custom-code-section" style="display: none;">
+            {{ form.code.label(class="form-label") }}
             {{ form.code(class="form-control") }}
         </div>
         <div>
@@ -25,5 +30,12 @@
         </div>
         <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
     </form>
+
+<script>
+    document.getElementById('predefined_code').addEventListener('change', function() {
+        const customCodeSection = document.getElementById('custom-code-section');
+        customCodeSection.style.display = this.value === 'OTHER' ? 'block' : 'none';
+    });
+</script>
 {% endblock %}
 

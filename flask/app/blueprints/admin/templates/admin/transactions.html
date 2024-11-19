@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}User Transactions{% endblock %}
+{% block content %}
+    <h1>Transactions for {{ user.first_name }} {{ user.last_name }}</h1>
+    <h3>Points Logs</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Unused Points</th>
+                <th>Original Points</th>
+                <th>Description</th>
+                <th>Actions</th>
+                <th> </th> <!-- Add an empty column for the delete button -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in points_logs %}
+            <tr>
+                <td>{{ log.added_date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ log.points }}</td>
+                <td>{{ log.original_points }}</td>
+                <td>{{ log.description }}</td>
+                <td>
+                    <a href="{{ url_for('admin_bp.edit_transaction', log_id=log.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('admin_bp.delete_transaction', log_id=log.id) }}" style="display:inline;">
+                        {{ form_del.hidden_tag() }}
+                        {{ form_del.submit(class="btn btn-sm btn-danger") }}
+                    </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Redemptions</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Points</th>
+            <th>Description</th>
+            <th>Gift Card Sent</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for redemption in redemptions %}
+        <tr>
+            <td>{{ redemption.redemption_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ redemption.points }}</td>
+            <td>{{ redemption.description }}</td>
+            <td>{{ 'Yes' if redemption.gift_card_sent else 'No' }}</td>
+            <td>
+                {% if not redemption.gift_card_sent %}
+                <form method="POST" action="{{ url_for('admin_bp.mark_gift_card_sent', redemption_id=redemption.id) }}" style="display:inline;">
+                    {{ form.hidden_tag() }}
+                    {{ form.submit(class="btn btn-sm btn-success") }}
+                </form>
+                {% else %}
+                <button class="btn btn-sm btn-secondary" disabled>Already Sent</button>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

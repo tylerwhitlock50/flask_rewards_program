@@ -1,6 +1,8 @@
+from flask import current_app
 from flask_login import UserMixin
 from app.extensions import db
 from datetime import datetime, timedelta
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,7 +45,7 @@ class User(UserMixin, db.Model):
     def get_point_balance(self):
         """Calculate the user's current point balance."""
         earned_points = sum(
-            log.points for log in self.points_logs if not log.is_expired()
+            log.original_points for log in self.points_logs if not log.is_expired()
         )
         redeemed_points = sum(
             redemption.points for redemption in self.redemption_logs
@@ -66,7 +68,7 @@ class User(UserMixin, db.Model):
             "details": expiring_points_logs
         }
     
-    def log_points(self, code_str):
+    def log_points(self, code_str, file_reference=None):
         """Log points for the user using a pre-approved code."""
         # Validate the code
         code = PointCodes.query.filter_by(code=code_str).first()
@@ -81,21 +83,51 @@ class User(UserMixin, db.Model):
             description=code.description,
             added_date=datetime.utcnow(),
             expiry_date=code.expiry_date,
-            code_used=code.id
+            code_used=code.id,
+            file_reference=file_reference
         )
         code.consume_code()  # Mark as used
         db.session.add(points_log)
         db.session.commit()
         return points_log
     
-    def redeem_points(self, amount, description):
+    def has_unapproved_receipts(self):
+        """Check if the user has any unapproved receipt submissions."""
+        for log in self.points_logs:
+            # Assuming logs that are not rejected or approved are pending
+            if log.approved == True:
+                continue  # Skip rejected logs
+            if not log.points or log.points == 0:
+                continue  # Skip logs where points were denied
+            # Add any additional logic if there's a specific approved flag
+            return True
+        return False
+    
+    def redeem_points(self, amount, redemption_type):
         """Redeem points by using the oldest unexpired points."""
+
+        if self.has_unapproved_receipts():
+            raise ValueError("Cannot redeem points. Unapproved receipts are pending.")
         if amount <= 0:
             raise ValueError("Redemption amount must be positive.")
-        
+
         if amount > self.get_point_balance():
             raise ValueError("Not enough points to redeem.")
+        
+        if amount < current_app.config['MINIMUM_REDEMPTION']:
+            raise ValueError(f"Minimum redemption is {current_app.config['MINIMUM_REDEMPTION']} points.")
 
+        # Determine the cash value and description based on the redemption type
+        if redemption_type == 'credit':
+            cash_value = amount * current_app.config['GIFT_CARD_VALUE']  # Supercomp Gift Card value
+            description = f'Supercomp Gift Card worth ${cash_value:.2f}'
+        elif redemption_type == 'visa':
+            cash_value = amount * current_app.config['VISA_VALUE']  # VISA Gift Card value
+            description = f'VISA Gift Card worth ${cash_value:.2f}'
+        else:
+            raise ValueError("Invalid redemption type.")
+
+        # Deduct points from oldest logs first
         unexpired_logs = sorted(
             [log for log in self.points_logs if not log.is_expired() and log.points > 0],
             key=lambda log: log.expiry_date or datetime.max
@@ -105,15 +137,15 @@ class User(UserMixin, db.Model):
         for log in unexpired_logs:
             if points_to_redeem <= 0:
                 break
-            
+
             if log.points >= points_to_redeem:
                 log.points -= points_to_redeem
                 points_to_redeem = 0
             else:
                 points_to_redeem -= log.points
                 log.points = 0
-        
-        # Create redemption log
+
+        # Create redemption log with cash value in the description
         redemption_log = RedemptionLog(
             user_id=self.id,
             points=amount,
@@ -167,7 +199,11 @@ class PointsLog(db.Model):
     active = db.Column(db.Boolean, default=True, nullable=False)
     
     code_used = db.Column(db.Integer, db.ForeignKey('point_codes.id'), nullable=False)
+    
     code = db.relationship('PointCodes', back_populates='points_logs', lazy=True)
+    file_reference = db.Column(db.String(100), nullable=True)
+    approved = db.Column(db.Boolean, default=False, nullable=False)
+    approved_by = db.Column(db.String(30), nullable=True)
 
     def is_expired(self):
         return self.expiry_date and self.expiry_date <= datetime.utcnow()
@@ -180,9 +216,16 @@ class RedemptionLog(db.Model):
     points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(100), nullable=False)
     redemption_date = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
+    updated_date = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    gift_card_sent = db.Column(db.Boolean, default=False, nullable=False)
+    
 
     def __repr__(self):
         return f"<RedemptionLog User {self.user_id}: -{self.points} points for {self.description}>"
+    
+    def mark_sent(self):
+        self.gift_card_sent = True
+        db.session.commit()
     
 class PointCodes(db.Model):
     # Code activation, one-time use, or reusable logic

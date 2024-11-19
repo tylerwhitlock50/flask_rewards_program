@@ -1,6 +1,6 @@
 from flask import render_template, url_for
 from flask_login import current_user, login_required
-from app.models import User, PointsLog
+from app.models import User, PointsLog, RedemptionLog
 from sqlalchemy import func
 from datetime import datetime, timedelta
 from . import dashboard_bp
@@ -20,7 +20,7 @@ def dashboard():
         .filter(PointsLog.added_date >= year_start)
         .group_by(User.id)
         .order_by(func.sum(PointsLog.original_points).desc())
-        .limit(5)
+        .limit(10)
     )
     top_earners = [
         {"username": row.username, "total_points": row.total_points}
@@ -50,6 +50,28 @@ def dashboard():
         .order_by(PointsLog.added_date.desc())
         .limit(25)  # Adjust this number for more or fewer items
     ).all()
+
+    recent_activity_query = (
+        db.session.query(
+            PointsLog.description.label('description'),
+            PointsLog.added_date.label('date'),
+            PointsLog.original_points.label('points'),
+            func.cast('earn', db.String).label('activity_type')
+        )
+        .filter(PointsLog.user_id == current_user.id)
+        .union_all(
+            db.session.query(
+                RedemptionLog.description.label('description'),
+                RedemptionLog.redemption_date.label('date'),
+                -RedemptionLog.points.label('points'),
+                func.cast('redeem', db.String).label('activity_type')
+            ).filter(RedemptionLog.user_id == current_user.id)
+        )
+        .order_by(db.text('date DESC'))
+        .limit(25)
+    )
+    recent_activity = recent_activity_query.all()
+
 
     return render_template(
         'dashboard/dashboard.html',

@@ -4,6 +4,8 @@ from app.extensions import db, migrate, login_manager
 from app.blueprints.auth import auth_bp
 from app.blueprints.points import points_bp
 from app.blueprints.dashboard import dashboard_bp
+from app.blueprints.rewards import rewards_bp
+from app.blueprints.admin import admin_bp
 from datetime import datetime
 
 def create_app(config_class='config.Config'):
@@ -30,6 +32,8 @@ def create_app(config_class='config.Config'):
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(points_bp, url_prefix='/points')
     app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
+    app.register_blueprint(rewards_bp, url_prefix='/rewards')
+    app.register_blueprint(admin_bp, url_prefix='/admin')
 
     @app.route('/')
     def index():

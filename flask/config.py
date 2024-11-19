@@ -5,7 +5,10 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///app.db')  # Default to SQLite
     SQLALCHEMY_TRACK_MODIFICATIONS = False  # Disable event system to save resources
     DEBUG = True  # Enable debug mode for development
-    RECEIPT_UPLOAD_FOLDER = 'uploads/receipts'  # Folder for uploaded receipts
+    RECEIPT_UPLOAD_FOLDER = 'app/static/receipts'  # Folder for uploaded receipts
+    VISA_VALUE = .10
+    GIFT_CARD_VALUE = .15
+    MINIMUM_REDEMPTION = 500
 
 class DevelopmentConfig(Config):
     ENV = 'development'
