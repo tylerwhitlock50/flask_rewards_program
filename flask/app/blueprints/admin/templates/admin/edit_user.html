@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}Edit User{% endblock %}
+{% block content %}
+    <h1>Edit User: {{ user.first_name }} {{ user.last_name }}</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ user.phone }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" name="address" value="{{ user.address }}">
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" name="city" value="{{ user.city }}">
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" id="state" name="state" value="{{ user.state }}">
+        </div>
+        <div class="mb-3">
+            <label for="zip" class="form-label">Zip</label>
+            <input type="text" class="form-control" id="zip" name="zip" value="{{ user.zip }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="shirt_size" class="form-label">Shirt Size</label>
+            <input type="text" class="form-control" id="shirt_size" name="shirt_size" value="{{ user.shirt_size }}">
+        </div>
+        <div class="mb-3">
+            <label for="salesep_id" class="form-label">Sales Rep ID</label>
+            <input type="text" class="form-control" id="salesep_id" name="salesep_id" value="{{ user.salesep_id }}">
+        </div>
+        <div class="mb-3">
+            <label for="territory_id" class="form-label">Territory ID</label>
+            <input type="text" class="form-control" id="territory_id" name="territory_id" value="{{ user.territory_id }}">
+        </div>
+        <div class="mb-3">
+            <label for="customer_group" class="form-label">Customer Group</label>
+            <input type="text" class="form-control" id="customer_group" name="customer_group" value="{{ user.customer_group }}">
+        </div>
+        <div class="mb-3">
+            <label for="team_id" class="form-label">Team ID</label>
+            <input type="text" class="form-control" id="team_id" name="team_id" value="{{ user.team_id }}">
+        </div>
+        <div class="mb-3">
+            <label for="user_1" class="form-label">User Field 1</label>
+            <input type="text" class="form-control" id="user_1" name="user_1" value="{{ user.user_1 }}">
+        </div>
+        <div class="mb-3">
+            <label for="user_2" class="form-label">User Field 2</label>
+            <input type="text" class="form-control" id="user_2" name="user_2" value="{{ user.user_2 }}">
+        </div>
+        <div class="mb-3">
+            <label for="user_3" class="form-label">User Field 3</label>
+            <input type="text" class="form-control" id="user_3" name="user_3" value="{{ user.user_3 }}">
+        </div>
+        <div class="mb-3">
+            <label for="user_4" class="form-label">User Field 4</label>
+            <input type="text" class="form-control" id="user_4" name="user_4" value="{{ user.user_4 }}">
+        </div>
+        <div class="mb-3">
+            <label for="user_5" class="form-label">User Field 5</label>
+            <input type="text" class="form-control" id="user_5" name="user_5" value="{{ user.user_5 }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update User</button>
+        <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,7 +1,8 @@
 from app.models import User, Retailer, PointsLog, PointCodes, RedemptionLog
 from app.extensions import db
+from app import bcrypt
 from datetime import datetime, timedelta
-from werkzeug.security import generate_password_hash
+#from werkzeug.security import generate_password_hash
 
 def seed_retailer():
     """Create and return a demo retailer."""
@@ -29,6 +30,9 @@ def seed_users(retailer_id):
             username=f'demo_user{i}',
             phone=f'555-000-{i:04}',
             address=f'{i} Demo Lane',
+            city='Demo City',
+            state='DE',
+            zip='12345',
             first_name='Demo',
             last_name=f'User {i}',
             tos_agreement=True,
@@ -36,7 +40,7 @@ def seed_users(retailer_id):
             registration_date=datetime.utcnow(),
             updated_date=datetime.utcnow(),
             referal_code=f'REF-{i}',
-            password_hash=generate_password_hash('password'),
+            password_hash=bcrypt.generate_password_hash('password'),
             retailer_id=retailer_id,
         )
         for i in range(1, 6)
@@ -163,6 +167,9 @@ def seed_admin_user(retailer_id):
         username='admin_user',
         phone='555-ADMIN',
         address='Admin Lane 1',
+        city='Admin City',
+        state='DE',
+        zip='54321',
         first_name='Admin',
         last_name='User',
         tos_agreement=True,
@@ -170,7 +177,7 @@ def seed_admin_user(retailer_id):
         registration_date=datetime.utcnow(),
         updated_date=datetime.utcnow(),
         referal_code='ADMIN-REF',
-        password_hash=generate_password_hash('admin'),  # Default password
+        password_hash=bcrypt.generate_password_hash('admin'),  # Default password
         retailer_id=retailer_id,
         is_admin=True,
     )

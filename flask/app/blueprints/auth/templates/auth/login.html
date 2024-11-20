@@ -32,6 +32,9 @@
         <div class="mb-3">
             {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
         </div>
+        <p>
+            <a href="{{ url_for('auth.request_password_reset') }}">Forgot Password?</a>
+        </p>
 
         <p class="mt-5 mb-3 text-muted">© 2024</p>
     </form>

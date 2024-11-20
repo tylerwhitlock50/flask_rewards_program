@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">My Profile</h1>
+    <p class="text-center">Update your information below or <a href="{{ url_for('auth.change_password') }}" class="text-warning">change your password</a>.</p>
+
+    <form method="POST" action="{{ url_for('auth.profile') }}" class="mt-4">
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ user.phone }}">
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" name="address" value="{{ user.address }}">
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" name="city" value="{{ user.city }}">
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" id="state" name="state" value="{{ user.state }}">
+        </div>
+        <div class="mb-3">
+            <label for="zip" class="form-label">Zip Code</label>
+            <input type="text" class="form-control" id="zip" name="zip" value="{{ user.zip }}">
+        </div>
+        <div class="mb-3">
+            <label for="shirt_size" class="form-label">Shirt Size</label>
+            <input type="text" class="form-control" id="shirt_size" name="shirt_size" value="{{ user.shirt_size }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
+{% endblock %}

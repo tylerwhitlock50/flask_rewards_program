@@ -12,6 +12,9 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(15), nullable=False)
     address = db.Column(db.String(100), nullable=False)
+    city = db.Column(db.String(30), nullable=False)
+    state = db.Column(db.String(30), nullable=False)
+    zip = db.Column(db.String(10), nullable=False)
     tos_agreement = db.Column(db.Boolean, nullable=False)
     tos_date = db.Column(db.DateTime, nullable=False)
     registration_date = db.Column(db.DateTime, nullable=False)
@@ -21,12 +24,14 @@ class User(UserMixin, db.Model):
     retailer_id = db.Column(db.Integer, db.ForeignKey('retailer.id'), nullable=False)
     points_logs = db.relationship('PointsLog', backref='user', lazy=True)
     redemption_logs = db.relationship('RedemptionLog', backref='user', lazy=True)
+    shirt_size = db.Column(db.String(10), nullable=True)
 
     #Roles and permissions
     is_admin = db.Column(db.Boolean, default=False)
     is_sales_manager = db.Column(db.Boolean, default=False)
     is_customer_service = db.Column(db.Boolean, default=False)
     is_internal = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean, default=True)
 
     # Custom fields for user fo promos and later classifcation
     salesep_id = db.Column(db.String(30), nullable=True)

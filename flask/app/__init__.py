@@ -1,6 +1,6 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_login import current_user
-from app.extensions import db, migrate, login_manager
+from app.extensions import db, migrate, login_manager, mail, bcrypt
 from app.blueprints.auth import auth_bp
 from app.blueprints.points import points_bp
 from app.blueprints.dashboard import dashboard_bp
@@ -16,6 +16,19 @@ def create_app(config_class='config.Config'):
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+    mail.init_app(app)
+    bcrypt.init_app(app)
+
+
+    @app.before_request
+    def check_user_active():
+        # List of exempt routes
+        exempt_routes = ['auth.logout', 'auth.register', 'auth.login', 'static']
+
+        if request.endpoint not in exempt_routes:
+            if current_user.is_authenticated and not current_user.is_active:
+                flash('Your account is inactive. Please contact an administrator.', 'danger')
+                return render_template('auth.login')
 
     # Import models here to avoid circular imports
     from app.models import User, Retailer
@@ -27,6 +40,11 @@ def create_app(config_class='config.Config'):
             db.create_all()
             if not Retailer.query.filter_by(name='Demo Retailer').first():
                 seed_demo_data()
+
+    if app.config['ENV'] == 'production':
+        with app.app_context():
+            db.create_all()
+
 
     # Register blueprints
     app.register_blueprint(auth_bp, url_prefix='/auth')

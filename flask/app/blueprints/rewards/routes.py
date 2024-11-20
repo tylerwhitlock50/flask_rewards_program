@@ -48,7 +48,7 @@ def redeem_points():
             flash(f'Successfully redeemed {points_to_redeem} points for a {description} worth ${redemption_value:.2f}.', 'success')
         except Exception as e:
             flash(f'An error occurred while redeeming points: {str(e)}', 'danger')
-        return redirect(url_for('rewards_bp.redeem_points'))
+        return redirect(url_for('dashboard.dashboard'))
 
     return render_template(
         'redeem/redeem.html',
