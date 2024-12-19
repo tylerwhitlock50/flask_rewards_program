@@ -20,7 +20,7 @@ class User(UserMixin, db.Model):
     registration_date = db.Column(db.DateTime, nullable=False)
     updated_date = db.Column(db.DateTime, nullable=False)
     referal_code = db.Column(db.String(30), nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
+    password_hash = db.Column(db.VARCHAR(), nullable=False)
     retailer_id = db.Column(db.Integer, db.ForeignKey('retailer.id'), nullable=False)
     points_logs = db.relationship('PointsLog', backref='user', lazy=True)
     redemption_logs = db.relationship('RedemptionLog', backref='user', lazy=True)

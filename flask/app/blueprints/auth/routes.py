@@ -49,7 +49,7 @@ def register():
             tos_date=datetime.utcnow(),
             registration_date=datetime.utcnow(),
             updated_date=datetime.utcnow(),
-            password_hash=bcrypt.generate_password_hash(form.password.data),
+            password_hash=bcrypt.generate_password_hash(form.password.data).decode('utf-8'),
             retailer_id=form.retailer.data
         )
 

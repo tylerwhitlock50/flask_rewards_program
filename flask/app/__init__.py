@@ -19,6 +19,11 @@ def create_app(config_class='config.Config'):
     mail.init_app(app)
     bcrypt.init_app(app)
 
+    @app.cli.command('seed_data')
+    def seed_data():
+        from app.seed import seed_data
+        seed_data()
+
 
     @app.before_request
     def check_user_active():

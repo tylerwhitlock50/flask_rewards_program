@@ -32,15 +32,17 @@ def dashboard():
 
     # Points earned by month for the last 12 months
     last_12_months = datetime.utcnow() - timedelta(days=365)
-    points_by_month_query = (
-        db.session.query(
-            func.strftime('%Y-%m', PointsLog.added_date).label('month'),
-            func.sum(PointsLog.original_points).label('points')
-        )
-        .filter(PointsLog.user_id == current_user.id, PointsLog.added_date >= last_12_months)
-        .group_by('month')
-        .order_by('month')
-    )
+    points_by_month_query = db.session.query(
+    func.to_char(PointsLog.added_date, 'YYYY-MM').label('month'),
+    func.sum(PointsLog.original_points).label('points')
+                ).filter(
+                    PointsLog.user_id == current_user.id,
+                    PointsLog.added_date >= last_12_months
+                ).group_by(
+                    func.to_char(PointsLog.added_date, 'YYYY-MM')
+                ).order_by(
+                    func.to_char(PointsLog.added_date, 'YYYY-MM')
+                ).all()
     points_by_month = [{"month": row.month, "points": row.points} for row in points_by_month_query]
 
     # User's recent activity (last 10-50 items)
