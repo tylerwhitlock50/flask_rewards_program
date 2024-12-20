@@ -61,45 +61,45 @@ def mark_gift_card_sent(redemption_id):
 
 @admin_bp.route('/admin/transactions/edit/<int:log_id>', methods=['GET', 'POST'])
 def edit_transaction(log_id):
-    log = PointsLog.query.get_or_404(log_id)
-    form = ModifyTransactionForm(obj=log)
+    plog = PointsLog.query.get_or_404(log_id)
+    form = ModifyTransactionForm(obj=plog)
     log.info(f'User {current_user.email} accessed the edit transaction page for transaction {log_id} at {datetime.now()}')
 
     if form.validate_on_submit():
         # Calculate the difference between new and old original points
-        original_difference = form.original_points.data - log.original_points
+        original_difference = form.original_points.data - plog.original_points
 
         # Adjust log.points accordingly
-        log.points += original_difference
-        if log.points < 0:
+        plog.points += original_difference
+        if plog.points < 0:
             flash('Transaction cannot result in negative points.', 'danger')
             return redirect(url_for('admin_bp.edit_transaction', log_id=log_id))
 
         # Update the log details
-        log.original_points = form.original_points.data
-        log.description = form.description.data
+        plog.original_points = form.original_points.data
+        plog.description = form.description.data
 
         # Commit changes
         db.session.commit()
         log.info(f'User {current_user.email} updated transaction {log_id} at {datetime.now()}')
         flash('Transaction updated successfully.', 'success')
-        return redirect(url_for('admin_bp.user_transactions', user_id=log.user_id))
+        return redirect(url_for('admin_bp.user_transactions', user_id=plog.user_id))
 
     return render_template('admin/edit_transaction.html', form=form, log=log)
 
 @admin_bp.route('/admin/transactions/delete/<int:log_id>', methods=['POST'])
 def delete_transaction(log_id):
-    log = PointsLog.query.get_or_404(log_id)
+    plog = PointsLog.query.get_or_404(log_id)
     log.info(f'User {current_user.email} attempted to delete transaction {log_id} at {datetime.now()}')
-    if log.points == log.original_points:
-        db.session.delete(log)
+    if plog.points == log.original_points:
+        db.session.delete(plog)
         db.session.commit()
         flash('Transaction deleted successfully.', 'success')
         log.info(f'User {current_user.email} deleted transaction {log_id} at {datetime.now()}')
     else:
         flash('Transaction cannot be deleted. Points Already Used', 'danger')
         log.warning(f'User {current_user.email} attempted to delete transaction {log_id} with points already used at {datetime.now()}')
-    return redirect(url_for('admin_bp.user_transactions', user_id=log.user_id))
+    return redirect(url_for('admin_bp.user_transactions', user_id=plog.user_id))
 
 @admin_bp.route('/admin/receipts/<int:user_id>', methods=['GET'])
 def user_receipts(user_id):
