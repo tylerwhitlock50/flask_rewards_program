@@ -66,24 +66,29 @@ def edit_transaction(log_id):
     log.info(f'User {current_user.email} accessed the edit transaction page for transaction {log_id} at {datetime.now()}')
 
     if form.validate_on_submit():
-        # Calculate the difference between new and old original points
-        original_difference = form.original_points.data - plog.original_points
+        try:
+            # Calculate the difference between new and old original points
+            original_difference = form.original_points.data - plog.original_points
 
-        # Adjust log.points accordingly
-        plog.points += original_difference
-        if plog.points < 0:
-            flash('Transaction cannot result in negative points.', 'danger')
+            # Adjust log.points accordingly
+            plog.points += original_difference
+            if plog.points < 0:
+                flash('Transaction cannot result in negative points.', 'danger')
+                return redirect(url_for('admin_bp.edit_transaction', log_id=log_id))
+
+            # Update the log details
+            plog.original_points = form.original_points.data
+            plog.description = form.description.data
+
+            # Commit changes
+            db.session.commit()
+            log.info(f'User {current_user.email} updated transaction {log_id} at {datetime.now()}')
+            flash('Transaction updated successfully.', 'success')
+            return redirect(url_for('admin_bp.user_transactions', user_id=plog.user_id))
+        except Exception as e:
+            log.error(f'Error updating transaction {log_id}: {e}')
+            flash('An error occurred while updating the transaction.', 'danger')
             return redirect(url_for('admin_bp.edit_transaction', log_id=log_id))
-
-        # Update the log details
-        plog.original_points = form.original_points.data
-        plog.description = form.description.data
-
-        # Commit changes
-        db.session.commit()
-        log.info(f'User {current_user.email} updated transaction {log_id} at {datetime.now()}')
-        flash('Transaction updated successfully.', 'success')
-        return redirect(url_for('admin_bp.user_transactions', user_id=plog.user_id))
 
     return render_template('admin/edit_transaction.html', form=form, log=plog)
 
