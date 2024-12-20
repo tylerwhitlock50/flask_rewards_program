@@ -89,6 +89,11 @@ def edit_transaction(log_id):
             log.error(f'Error updating transaction {log_id}: {e}')
             flash('An error occurred while updating the transaction.', 'danger')
             return redirect(url_for('admin_bp.edit_transaction', log_id=log_id))
+    else:
+        log.warning(f'User {current_user.email} attempted to access the edit transaction page for transaction {log_id} with invalid form data at {datetime.now()}')
+        log.warning(f'Form validation failed: {form.errors}')
+        log.debug(f'Form data: {form.data}')
+        log.debug('Form errors: %s', form.errors)
 
     return render_template('admin/edit_transaction.html', form=form, plog=plog)
 
