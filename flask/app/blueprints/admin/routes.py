@@ -85,7 +85,7 @@ def edit_transaction(log_id):
         flash('Transaction updated successfully.', 'success')
         return redirect(url_for('admin_bp.user_transactions', user_id=plog.user_id))
 
-    return render_template('admin/edit_transaction.html', form=form, log=log)
+    return render_template('admin/edit_transaction.html', form=form, log=plog)
 
 @admin_bp.route('/admin/transactions/delete/<int:log_id>', methods=['POST'])
 def delete_transaction(log_id):
