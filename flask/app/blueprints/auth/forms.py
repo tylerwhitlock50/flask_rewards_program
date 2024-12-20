@@ -35,6 +35,21 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('Username is already taken.')
+        
+    def validate_referal_code(self, referal_code):
+        valid_codes = ['GLASS25','SUPERCOMP25','CARBON25','MERICA',"UTV4USA",
+    "CLEARVIEW25",
+    "RIDEUSA",
+    "DUSTFREE",
+    "GEARBOX20",
+    "TRAILREADY",
+    "AMERICANRIDE",
+    "BOXEDUP",
+    "FREEDOM25",
+    "UTVSHIELD"]  # Add any additional valid codes to this list
+        if referal_code.data not in valid_codes:
+            raise ValidationError('Invalid referral code. Please enter a valid code to register.')
+    
 
 class LogoutForm(FlaskForm):
     submit = SubmitField('Logout')

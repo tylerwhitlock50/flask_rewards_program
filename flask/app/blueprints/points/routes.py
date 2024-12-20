@@ -6,6 +6,7 @@ from .forms import EarnPointsForm
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
+from app.extensions import log
 
 from . import points_bp
 
@@ -13,6 +14,7 @@ from . import points_bp
 @login_required  # Ensure only logged-in users can access this route
 def earn_points():
     form = EarnPointsForm()  # Instantiate the form
+    log.info(f'User {current_user.email} accessed the earn points page at {datetime.now()}')
 
     if form.validate_on_submit():
         
@@ -53,9 +55,11 @@ def earn_points():
         # Log points for the current user
         try:
             current_user.log_points(code_str, file_path)
+            log.info(f'User {current_user.email} successfully earned points for code {code_str} at {datetime.now()}')
             flash(f"Points successfully added for code {code_str}.", "success")
         except ValueError as e:
             flash(str(e), "danger")
+            log.error(f'Error adding points for user {current_user.email} at {datetime.now()}: {str(e)}')
 
         return redirect(url_for('dashboard.dashboard'))
 
