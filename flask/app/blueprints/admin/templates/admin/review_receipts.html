@@ -8,11 +8,11 @@
             <div class="col-md-6">
                 <div class="user-details">
                     <h3>User Details</h3>
-                    <p><strong>First Name:</strong> {{ log.user.first_name }}</p>
-                    <p><strong>Last Name:</strong> {{ log.user.last_name }}</p>
-                    <p><strong>Company:</strong> {{ log.user.retailer.name }}</p>
-                    <p><strong>Email:</strong> {{ log.user.email }}</p>
-                    <p><strong>Current Point Balance:</strong> {{ log.user.get_point_balance() }}</p>
+                    <p><strong>First Name:</strong> {{ plog.user.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ plog.user.last_name }}</p>
+                    <p><strong>Company:</strong> {{ plog.user.retailer.name }}</p>
+                    <p><strong>Email:</strong> {{ plog.user.email }}</p>
+                    <p><strong>Current Point Balance:</strong> {{ plog.user.get_point_balance() }}</p>
                 </div>
             </div>
     
@@ -20,10 +20,10 @@
             <div class="col-md-6">
                 <div class="receipt-details">
                     <h3>Receipt Details</h3>
-                    <p><strong>Date Submitted:</strong> {{ log.added_date.strftime('%Y-%m-%d') }}</p>
-                    <p><strong>Description:</strong> {{ log.description }}</p>
-                    <p><strong>Original Points:</strong> {{ log.original_points }}</p>
-                    <p><strong>Available Points:</strong> {{ log.points }}</p>
+                    <p><strong>Date Submitted:</strong> {{ plog.added_date.strftime('%Y-%m-%d') }}</p>
+                    <p><strong>Description:</strong> {{ plog.description }}</p>
+                    <p><strong>Original Points:</strong> {{ plog.original_points }}</p>
+                    <p><strong>Available Points:</strong> {{ plog.points }}</p>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
 
     <div class="receipt-image mt-4">
         <h3>Receipt Image</h3>
-        <img src="{{ url_for('static', filename=log.file_reference.split('static/')[-1].replace('\\', '/')) }}" alt="Receipt Image" class="img-fluid" />
+        <img src="{{ url_for('static', filename=plog.file_reference.split('static/')[-1].replace('\\', '/')) }}" alt="Receipt Image" class="img-fluid" />
     </div>
 
 
