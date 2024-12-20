@@ -90,7 +90,7 @@ def edit_transaction(log_id):
             flash('An error occurred while updating the transaction.', 'danger')
             return redirect(url_for('admin_bp.edit_transaction', log_id=log_id))
 
-    return render_template('admin/edit_transaction.html', form=form, log=plog)
+    return render_template('admin/edit_transaction.html', form=form, plog=plog)
 
 @admin_bp.route('/admin/transactions/delete/<int:log_id>', methods=['POST'])
 def delete_transaction(log_id):
