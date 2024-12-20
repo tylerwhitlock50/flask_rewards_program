@@ -37,7 +37,7 @@
 
     <div class="receipt-image mt-4">
         <h3>Receipt Image</h3>
-        <img src="{{ url_for('static', filename=plog.file_reference.split('static/')[-1].replace('\\', '/')) }}" alt="Receipt Image" class="img-fluid" />
+        <img src="{{ url_for('static', filename=plog.file_reference.replace('app/static/', '').replace('\\', '/')) }}" alt="Receipt Image" class="img-fluid" />
     </div>
 
 
