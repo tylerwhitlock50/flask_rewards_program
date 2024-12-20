@@ -91,7 +91,7 @@ def edit_transaction(log_id):
 def delete_transaction(log_id):
     plog = PointsLog.query.get_or_404(log_id)
     log.info(f'User {current_user.email} attempted to delete transaction {log_id} at {datetime.now()}')
-    if plog.points == log.original_points:
+    if plog.points == plog.original_points:
         db.session.delete(plog)
         db.session.commit()
         flash('Transaction deleted successfully.', 'success')
