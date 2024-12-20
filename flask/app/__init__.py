@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_login import current_user
-from app.extensions import db, migrate, login_manager, mail, bcrypt
+from app.extensions import db, migrate, login_manager, mail, bcrypt, log
 from app.blueprints.auth import auth_bp
 from app.blueprints.points import points_bp
 from app.blueprints.dashboard import dashboard_bp
@@ -11,6 +11,7 @@ from datetime import datetime
 def create_app(config_class='config.Config'):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    log.info(f'App started at {datetime.now()}')
 
     # Initialize extensions
     db.init_app(app)
@@ -57,6 +58,7 @@ def create_app(config_class='config.Config'):
     app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
     app.register_blueprint(rewards_bp, url_prefix='/rewards')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+    log.info('Blueprints registered')
 
     @app.route('/')
     def index():

@@ -9,32 +9,56 @@ from app.blueprints.auth import auth_bp
 from datetime import datetime
 from app.blueprints.auth.utils import generate_password_reset_token, send_password_reset_email, verify_password_reset_token
 from app import bcrypt
+from app.extensions import log
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password_hash, form.password.data):
-            login_user(user)
-            flash('Logged in successfully.', 'success')
-            return redirect(url_for('index'))
+        user = User.query.filter_by(email=str(form.email.data).lower()).first()
+        log.info(f'User {user} attempted to log in at {datetime.now()}')
+        
+        if user:
+            # Log retrieved hash and entered password
+            log.debug(f'Retrieved hash: {user.password_hash}')
+            log.debug(f'Entered password: {form.password.data}')
+            log.debug(f'Hash type: {type(user.password_hash)}')
+            log.debug(f'Calculated Hash: {bcrypt.generate_password_hash(form.password.data).decode("utf-8")}')
+            
+            # Calculate the hash of the entered password for comparison
+            is_password_correct = bcrypt.check_password_hash(user.password_hash, form.password.data)
+            log.debug(f'Password match: {is_password_correct}')
+            
+            if is_password_correct:
+                login_user(user)
+                flash('Logged in successfully.', 'success')
+                log.info(f'User {user.email} logged in at {datetime.now()}')
+                return redirect(url_for('index'))
+            else:
+                flash('Invalid email or password.', 'danger')
+                log.info(f'Failed login attempt for {form.email.data} at {datetime.now()} - Incorrect password')
         else:
             flash('Invalid email or password.', 'danger')
+            log.info(f'Failed login attempt for {form.email.data} at {datetime.now()} - User not found')
+
     elif form.errors:
         flash('Please correct the errors in the form.', 'danger')
+        log.info(f'Form validation failed for {form.email.data} at {datetime.now()} with errors: {form.errors}')
+    
     return render_template('auth/login.html', form=form)
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
+    log.info(f'User attempted to register at {datetime.now()}')
     form = RegistrationForm()
     form.retailer.choices = [(r.id, r.name) for r in Retailer.query.all()]
 
     if form.validate_on_submit():
+        log.info(f'User {form.email.data} successfully registered at {datetime.now()}')
         # Create new user
         new_user = User(
-            email=form.email.data,
+            email=str(form.email.data).lower(),
             username=form.username.data,
             phone=form.phone.data,
             first_name=form.first_name.data,
@@ -55,6 +79,7 @@ def register():
 
         db.session.add(new_user)
         db.session.commit()
+        log.info(f'User {form.email.data} successfully registered at {datetime.now()}')
 
         flash('Account created successfully! Please log in.', 'success')
         return redirect(url_for('auth.login'))
@@ -65,6 +90,7 @@ def register():
 @login_required
 def logout():
     form = LogoutForm()
+    log.info(f'User {current_user.email} logged out at {datetime.now()}')
     if form.validate_on_submit():
         logout_user()
         flash('You have been logged out.')
@@ -73,13 +99,16 @@ def logout():
 
 @auth_bp.route('/terms-and-conditions')
 def terms_and_conditions():
+    log.info(f'User viewed the terms and conditions at {datetime.now()}')
     return render_template('auth/terms_and_conditions.html')
 
 @auth_bp.route('/reset_password', methods=['GET', 'POST'])
 def request_password_reset():
+    log.info(f'User requested a password reset at {datetime.now()}')
     if request.method == 'POST':
-        email = request.form.get('email')
+        email = str(request.form.get('email')).lower()
         user = User.query.filter_by(email=email).first()
+        log.info(f'Password reset requested for {email} at {datetime.now()}')
 
         if user:
             token = generate_password_reset_token(user)  # Generate a secure token
@@ -96,10 +125,12 @@ def request_password_reset():
 def reset_password(token):
     user = verify_password_reset_token(token)
     if not user:
+        log.info(f'Invalid or expired token used at {datetime.now()}')
         flash('Invalid or expired token.', 'danger')
         return redirect(url_for('auth.request_password_reset'))
 
     if request.method == 'POST':
+        log.info(f'Password reset for {user.email} at {datetime.now()}')
         new_password = request.form.get('password')
         user.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')  # Assuming bcrypt is used
         db.session.commit()
@@ -112,6 +143,7 @@ def reset_password(token):
 @login_required
 def profile():
     user = current_user
+    log.info(f'User viewed their profile at {datetime.now()}')
     if request.method == 'POST':
         user.first_name = request.form.get('first_name')
         user.last_name = request.form.get('last_name')
@@ -123,12 +155,14 @@ def profile():
         user.shirt_size = request.form.get('shirt_size')
         db.session.commit()
         flash('Profile updated successfully.', 'success')
+        log.info(f'User {user.email} updated their profile at {datetime.now()}')
         return redirect(url_for('auth.profile'))
     return render_template('auth/profile.html', user=user)
 
 @auth_bp.route('/change_password', methods=['GET', 'POST'])
 @login_required
 def change_password():
+    log.info(f'User attempted to change their password at {datetime.now()}')
     if request.method == 'POST':
         current_password = request.form.get('current_password')
         new_password = request.form.get('new_password')
@@ -136,6 +170,7 @@ def change_password():
             current_user.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
             db.session.commit()
             flash('Password updated successfully.', 'success')
+            log.info(f'User {current_user.email} changed their password at {datetime.now()}')
             return redirect(url_for('auth.profile'))
         else:
             flash('Incorrect current password.', 'danger')

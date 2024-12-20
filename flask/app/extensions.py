@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask import redirect, url_for, flash
 from flask_mail import Mail
 from flask_bcrypt import Bcrypt
+from app.logger import logger
 
 
 db = SQLAlchemy()
@@ -11,6 +12,7 @@ migrate = Migrate()
 login_manager = LoginManager()
 mail = Mail()
 bcrypt = Bcrypt()
+log = logger
 
 @login_manager.user_loader
 def load_user(user_id):
