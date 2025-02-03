@@ -11,4 +11,7 @@ services:
     environment:
       FLASK_ENV: development  # Ensure Flask runs in development mode
       FLASK_APP: run.py  # Correctly point to the app's entry point
+    env_file:
+      - ./flask/.env
+
     command: flask run --host=0.0.0.0

@@ -8,8 +8,9 @@ class EarnPointsForm(FlaskForm):
     predefined_code = SelectField(
         'Select Code',
         choices=[
-            ('WINDOW-FRONT', 'SXS Window Front Code (100 points)'),
-            ('WINDOW-REAR', 'SXS Window Rear Code (75 points)'),
+            ('WINDOW-FRONT', 'SXS Window Front Code (20 points)'),
+            ('WINDOW-REAR', 'SXS Window Rear Code (10 points)'),
+            ('BOXES', 'Storage Box 10 points'),
             ('OTHER', 'Other')
         ],
         validators=[DataRequired(message="Please select a code.")]

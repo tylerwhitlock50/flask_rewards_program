@@ -12,8 +12,8 @@ from . import rewards_bp
 @login_required
 def redeem_points():
     balance = current_user.get_point_balance()
-    gift_card_value = 0.15  # Supercomp Gift Card value per point
-    visa_value = 0.10       # VISA Gift Card value per point
+    gift_card_value = 1.25  # Supercomp Gift Card value per point
+    visa_value = 1       # VISA Gift Card value per point
     log.info(f'User {current_user.email} accessed the redeem points page at {datetime.now()}')
     
     if request.method == 'POST':

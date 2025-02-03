@@ -56,33 +56,52 @@ def register():
 
     if form.validate_on_submit():
         log.info(f'User {form.email.data} successfully registered at {datetime.now()}')
+        
+        if form.password.data != form.confirm_password.data:
+            log.warning(f'User registration failed at {datetime.now()} from {request.remote_addr}: Passwords do not match')
+            flash('Passwords do not match. Please try again.', 'danger')
+            return render_template('auth/register.html', form=form)
+        try:
         # Create new user
-        new_user = User(
-            email=str(form.email.data).lower(),
-            username=form.username.data,
-            phone=form.phone.data,
-            first_name=form.first_name.data,
-            last_name=form.last_name.data,
-            address=form.address.data,
-            city=form.city.data,
-            state=form.state.data,
-            zip=form.zip.data,
-            shirt_size=form.shirt_size.data,
-            referal_code=form.referal_code.data,
-            tos_agreement=form.tos_agreement.data,
-            tos_date=datetime.utcnow(),
-            registration_date=datetime.utcnow(),
-            updated_date=datetime.utcnow(),
-            password_hash=bcrypt.generate_password_hash(form.password.data).decode('utf-8'),
-            retailer_id=form.retailer.data
-        )
+            new_user = User(
+                email=str(form.email.data).lower(),
+                username=form.username.data,
+                phone=form.phone.data,
+                first_name=form.first_name.data,
+                last_name=form.last_name.data,
+                address=form.address.data,
+                city=form.city.data,
+                state=form.state.data,
+                zip=form.zip.data,
+                shirt_size=form.shirt_size.data,
+                referal_code=form.referal_code.data,
+                tos_agreement=form.tos_agreement.data,
+                tos_date=datetime.utcnow(),
+                registration_date=datetime.utcnow(),
+                updated_date=datetime.utcnow(),
+                password_hash=bcrypt.generate_password_hash(form.password.data).decode('utf-8'),
+                retailer_id=form.retailer.data
+            )
 
-        db.session.add(new_user)
-        db.session.commit()
-        log.info(f'User {form.email.data} successfully registered at {datetime.now()}')
+            db.session.add(new_user)
+            db.session.commit()
+            log.info(f'User {form.email.data} successfully registered at {datetime.now()}')
 
-        flash('Account created successfully! Please log in.', 'success')
-        return redirect(url_for('auth.login'))
+            flash('Account created successfully! Please log in.', 'success')
+            return redirect(url_for('auth.login'))
+        
+        except IntegrityError:
+            db.session.rollback()
+            log.warning(f'User registration failed at {datetime.now()} from {request.remote_addr}: Email already exists')
+            log.warning(f'User Registration failed at {datetime.now()} from {request.remote_addr}. Errors: {form.errors}')
+            flash('Email is already registered. Please use a different email or log in.', 'danger')
+            
+    else:
+        log.warning(f'User registration failed at {datetime.now()} from {request.remote_addr}. Errors: {form.errors}')
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"{field.replace('_', ' ').capitalize()}: {error}", 'danger')
+        
 
     return render_template('auth/register.html', form=form)
 

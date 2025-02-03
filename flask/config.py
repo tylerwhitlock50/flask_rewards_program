@@ -8,9 +8,9 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False  # Disable event system to save resources
     DEBUG = True  # Enable debug mode for development
     RECEIPT_UPLOAD_FOLDER = 'app/static/receipts'  # Folder for uploaded receipts
-    VISA_VALUE = .10
-    GIFT_CARD_VALUE = .15
-    MINIMUM_REDEMPTION = 500
+    VISA_VALUE = 1
+    GIFT_CARD_VALUE = 1.25
+    MINIMUM_REDEMPTION = 50
     SECRET_KEY = os.getenv('SECRET_KEY', 'default')
 
     MAIL_SERVER = 'smtp-mail.outlook.com'
