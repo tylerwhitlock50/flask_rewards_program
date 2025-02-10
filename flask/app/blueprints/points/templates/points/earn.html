@@ -1,41 +1,109 @@
-
-
 {% extends "base.html" %}
 {% block title %}Earn{% endblock %}
 {% block styles %}
-    .btn-primary {
-        font-size: 1rem;
-        font-weight: bold;
-        margin-top: 10px;
-    }
+    <style>
+        .btn-primary {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #preview-image {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
     <h1>Enter Code and Upload Receipt</h1>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form id="earn-points-form" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
+
         <div class="mb-3">
             {{ form.predefined_code.label(class="form-label") }}
             {{ form.predefined_code(class="form-select") }}
         </div>
-    
+
         <div class="mb-3" id="custom-code-section" style="display: none;">
             {{ form.code.label(class="form-label") }}
             {{ form.code(class="form-control") }}
         </div>
-        <div>
+
+        <div class="mb-3">
             {{ form.receipt.label }}
-            {{ form.receipt(class="form-control") }}
+            <input type="file" id="receipt-upload" name ="receipt" class="form-control" accept="image/*">
+            <img id="preview-image">
         </div>
-        <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-<script>
-    document.getElementById('predefined_code').addEventListener('change', function() {
-        const customCodeSection = document.getElementById('custom-code-section');
-        customCodeSection.style.display = this.value === 'OTHER' ? 'block' : 'none';
-    });
-</script>
+    <script>
+        document.getElementById('predefined_code').addEventListener('change', function() {
+            const customCodeSection = document.getElementById('custom-code-section');
+            customCodeSection.style.display = this.value === 'OTHER' ? 'block' : 'none';
+        });
+        
+        document.getElementById('earn-points-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+        
+            const fileInput = document.getElementById('receipt-upload');
+            const file = fileInput.files[0];
+        
+            if (!file) {
+                alert("Please select an image to upload.");
+                return;
+            }
+        
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+        
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+        
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+        
+                    const MAX_WIDTH = 1000;
+                    const MAX_HEIGHT = 1000;
+                    let width = img.width;
+                    let height = img.height;
+        
+                    if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+                        if (width > height) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        } else {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+        
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+        
+                    canvas.toBlob(function(blob) {
+                        const compressedFile = new File([blob], file.name, { type: "image/jpeg" });
+        
+                        const formData = new FormData(document.getElementById('earn-points-form'));
+                        formData.set("receipt", compressedFile); // Ensure receipt field is properly set
+        
+                        fetch(document.getElementById('earn-points-form').action, {
+                            method: "POST",
+                            body: formData
+                        }).then(response => {
+                            window.location.href = response.url;
+                        }).catch(error => console.error("Submission error:", error));
+                    }, 'image/jpeg', 0.7);
+                };
+            };
+        });
+        </script>
+        
 {% endblock %}
-

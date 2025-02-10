@@ -15,8 +15,18 @@ from . import points_bp
 def earn_points():
     form = EarnPointsForm()  # Instantiate the form
     log.info(f'User {current_user.email} accessed the earn points page at {datetime.now()}')
+    if request.method == 'GET':
+        return render_template('points/earn.html', form=form)
+    
+    if request.method == 'POST':
+        log.info(f'User {current_user.email} submitted the earn points form at {datetime.now()}')
+        log.debug(f'Form data: {form.data}')
+        log.debug(f'Request data: {request}')
+        log.debug(f'Request files: {request.files}')
+        log.debug(f'Request form: {request.form}')
+        log.debug(f'Request values: {request.values}')
 
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
         
         predefined_code = form.predefined_code.data
         if predefined_code == 'OTHER':
@@ -62,6 +72,10 @@ def earn_points():
             log.error(f'Error adding points for user {current_user.email} at {datetime.now()}: {str(e)}')
 
         return redirect(url_for('dashboard.dashboard'))
+    
+    else:
+        log.error(f'User {current_user.email} encountered errors while trying to earn points at {datetime.now()}: {form.errors}')
+        flash("An error occurred. Please check the form for errors.", "danger")
 
     return render_template('points/earn.html', form=form, errors=form.errors)
 

@@ -942,3 +942,110 @@
 2025-02-03 22:08:27,576 - INFO - User tanner.wilkinson@motounited.com accessed the earn points page at 2025-02-03 22:08:27.576532
 2025-02-03 22:09:19,233 - INFO - User tanner.wilkinson@motounited.com accessed the earn points page at 2025-02-03 22:09:19.233863
 2025-02-03 22:09:50,908 - INFO - User tylerw@thefuturecomp.com accessed the transactions page for tanner.wilkinson@motounited.com at 2025-02-03 22:09:50.908713
+2025-02-10 19:50:03,041 - INFO - App started at 2025-02-10 19:50:03.041133
+2025-02-10 19:52:21,685 - INFO - App started at 2025-02-10 19:52:21.685139
+2025-02-10 19:52:23,211 - INFO - Blueprints registered
+2025-02-10 19:52:39,951 - INFO - User <User The Admin> attempted to log in at 2025-02-10 19:52:39.951807
+2025-02-10 19:52:39,955 - DEBUG - Retrieved hash: $2b$12$Y0Q5Jf8cY3a1GgXCE2emQejD1tOr1BBRfYQ7i.RQDS2Depfj3LEru
+2025-02-10 19:52:39,957 - DEBUG - Entered password: Whit123+
+2025-02-10 19:52:39,958 - DEBUG - Hash type: <class 'str'>
+2025-02-10 19:52:40,134 - DEBUG - Calculated Hash: $2b$12$hPUMSVslVhN29wzeAMcKV.s/rfgvxeVB7L669Wxd.oLS4qtIoOqfO
+2025-02-10 19:52:40,312 - DEBUG - Password match: True
+2025-02-10 19:52:40,313 - INFO - User tylerw@thefuturecomp.com logged in at 2025-02-10 19:52:40.312987
+2025-02-10 19:52:45,708 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 19:52:45.708368
+2025-02-10 19:56:32,298 - INFO - App started at 2025-02-10 19:56:32.298234
+2025-02-10 19:56:33,796 - INFO - Blueprints registered
+2025-02-10 19:56:35,615 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 19:56:35.615341
+2025-02-10 19:56:49,066 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 19:56:49.066486
+2025-02-10 19:58:14,243 - INFO - App started at 2025-02-10 19:58:14.243842
+2025-02-10 19:58:15,812 - INFO - Blueprints registered
+2025-02-10 19:58:26,486 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 19:58:26.486222
+2025-02-10 19:58:26,487 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 19:58:26.487375: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:01:07,849 - INFO - App started at 2025-02-10 20:01:07.849225
+2025-02-10 20:01:09,386 - INFO - Blueprints registered
+2025-02-10 20:01:09,787 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:01:09.787875
+2025-02-10 20:01:09,789 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:01:09.788988: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:01:14,746 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:01:14.746273
+2025-02-10 20:01:14,747 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:01:14.747380: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:04:09,112 - INFO - App started at 2025-02-10 20:04:09.112327
+2025-02-10 20:04:11,190 - INFO - Blueprints registered
+2025-02-10 20:04:14,902 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:04:14.902800
+2025-02-10 20:04:14,904 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:04:14.904321: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:04:16,428 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:04:16.428857
+2025-02-10 20:04:16,430 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:04:16.430309: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:04:17,717 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:04:17.716998
+2025-02-10 20:04:17,719 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:04:17.719293: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:04:22,852 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:04:22.852458
+2025-02-10 20:04:22,854 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:04:22.854192: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:04:30,092 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:04:30.092682
+2025-02-10 20:04:30,094 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:04:30.094371: {}
+2025-02-10 20:04:36,029 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:04:36.029362
+2025-02-10 20:04:36,030 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:04:36.030851: {}
+2025-02-10 20:08:03,671 - INFO - App started at 2025-02-10 20:08:03.671382
+2025-02-10 20:08:05,185 - INFO - Blueprints registered
+2025-02-10 20:08:12,180 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:08:12.180646
+2025-02-10 20:08:12,182 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:08:12.182331: {}
+2025-02-10 20:08:32,197 - INFO - App started at 2025-02-10 20:08:32.197839
+2025-02-10 20:08:33,723 - INFO - Blueprints registered
+2025-02-10 20:08:36,420 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:08:36.420840
+2025-02-10 20:08:36,425 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:08:36.425493: {}
+2025-02-10 20:09:30,903 - INFO - App started at 2025-02-10 20:09:30.903074
+2025-02-10 20:09:32,450 - INFO - Blueprints registered
+2025-02-10 20:09:32,873 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:09:32.873580
+2025-02-10 20:09:49,609 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:09:49.609403
+2025-02-10 20:09:59,185 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:09:59.185115
+2025-02-10 20:09:59,186 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:09:59.186663: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:11:48,766 - INFO - App started at 2025-02-10 20:11:48.766761
+2025-02-10 20:11:50,314 - INFO - Blueprints registered
+2025-02-10 20:12:08,914 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:12:08.914051
+2025-02-10 20:12:08,917 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:12:08.917006: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:12:14,480 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:12:14.480354
+2025-02-10 20:12:14,483 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:12:14.483216: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:12:34,115 - INFO - App started at 2025-02-10 20:12:34.115960
+2025-02-10 20:12:35,606 - INFO - Blueprints registered
+2025-02-10 20:12:39,729 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:12:39.729080
+2025-02-10 20:12:52,702 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:12:52.702727
+2025-02-10 20:12:52,704 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:12:52.704175: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:13:37,696 - INFO - App started at 2025-02-10 20:13:37.696379
+2025-02-10 20:13:39,258 - INFO - Blueprints registered
+2025-02-10 20:13:41,760 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:13:41.760937
+2025-02-10 20:13:49,860 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:13:49.860481
+2025-02-10 20:13:49,861 - INFO - User tylerw@thefuturecomp.com submitted the earn points form at 2025-02-10 20:13:49.861596
+2025-02-10 20:13:49,862 - DEBUG - Form data: {'predefined_code': 'WINDOW-FRONT', 'code': '', 'receipt': None, 'submit': False, 'csrf_token': 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6pd9Q.EUjRbMyTp5PFDjT-ZL1lrwp1h74'}
+2025-02-10 20:13:49,863 - DEBUG - Request data: <Request 'http://127.0.0.1:5000/points/earn' [POST]>
+2025-02-10 20:13:49,864 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:13:49.864310: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:14:33,466 - INFO - App started at 2025-02-10 20:14:33.466073
+2025-02-10 20:14:34,985 - INFO - Blueprints registered
+2025-02-10 20:14:41,796 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:14:41.796325
+2025-02-10 20:14:47,829 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:14:47.829371
+2025-02-10 20:14:47,830 - INFO - User tylerw@thefuturecomp.com submitted the earn points form at 2025-02-10 20:14:47.830167
+2025-02-10 20:14:47,830 - DEBUG - Form data: {'predefined_code': 'WINDOW-FRONT', 'code': '', 'receipt': None, 'submit': False, 'csrf_token': 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6peMQ.VpKNc6sMU96-FdG_m5JhyBCdp2U'}
+2025-02-10 20:14:47,831 - DEBUG - Request data: <Request 'http://127.0.0.1:5000/points/earn' [POST]>
+2025-02-10 20:14:47,831 - DEBUG - Request files: ImmutableMultiDict([])
+2025-02-10 20:14:47,832 - DEBUG - Request form: ImmutableMultiDict([('csrf_token', 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6peMQ.VpKNc6sMU96-FdG_m5JhyBCdp2U'), ('predefined_code', 'WINDOW-FRONT'), ('code', '')])
+2025-02-10 20:14:47,832 - DEBUG - Request values: CombinedMultiDict([ImmutableMultiDict([]), ImmutableMultiDict([('csrf_token', 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6peMQ.VpKNc6sMU96-FdG_m5JhyBCdp2U'), ('predefined_code', 'WINDOW-FRONT'), ('code', '')])])
+2025-02-10 20:14:47,833 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:14:47.833022: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:18:16,897 - INFO - App started at 2025-02-10 20:18:16.897565
+2025-02-10 20:18:18,492 - INFO - Blueprints registered
+2025-02-10 20:18:27,468 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:18:27.467913
+2025-02-10 20:18:32,545 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:18:32.545091
+2025-02-10 20:18:32,546 - INFO - User tylerw@thefuturecomp.com submitted the earn points form at 2025-02-10 20:18:32.546381
+2025-02-10 20:18:32,547 - DEBUG - Form data: {'predefined_code': 'WINDOW-FRONT', 'code': '', 'receipt': None, 'submit': False, 'csrf_token': 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6pfEw.vS8fdzoJsfdlMnnldY-VGxstO60'}
+2025-02-10 20:18:32,547 - DEBUG - Request data: <Request 'http://127.0.0.1:5000/points/earn' [POST]>
+2025-02-10 20:18:32,548 - DEBUG - Request files: ImmutableMultiDict([])
+2025-02-10 20:18:32,549 - DEBUG - Request form: ImmutableMultiDict([('csrf_token', 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6pfEw.vS8fdzoJsfdlMnnldY-VGxstO60'), ('predefined_code', 'WINDOW-FRONT'), ('code', '')])
+2025-02-10 20:18:32,549 - DEBUG - Request values: CombinedMultiDict([ImmutableMultiDict([]), ImmutableMultiDict([('csrf_token', 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6pfEw.vS8fdzoJsfdlMnnldY-VGxstO60'), ('predefined_code', 'WINDOW-FRONT'), ('code', '')])])
+2025-02-10 20:18:32,550 - ERROR - User tylerw@thefuturecomp.com encountered errors while trying to earn points at 2025-02-10 20:18:32.550137: {'receipt': ['A receipt file is required.']}
+2025-02-10 20:26:06,163 - INFO - App started at 2025-02-10 20:26:06.163731
+2025-02-10 20:26:07,636 - INFO - Blueprints registered
+2025-02-10 20:26:11,171 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:26:11.171877
+2025-02-10 20:26:15,861 - INFO - User tylerw@thefuturecomp.com accessed the earn points page at 2025-02-10 20:26:15.861201
+2025-02-10 20:26:15,862 - INFO - User tylerw@thefuturecomp.com submitted the earn points form at 2025-02-10 20:26:15.862146
+2025-02-10 20:26:15,862 - DEBUG - Form data: {'predefined_code': 'WINDOW-FRONT', 'code': '', 'receipt': <FileStorage: '20_15_CSS_QC_Dashboard.png' ('image/jpeg')>, 'submit': False, 'csrf_token': 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6pg4w.MRHiRBxfFIOa2NqcInOdU9qFtuA'}
+2025-02-10 20:26:15,863 - DEBUG - Request data: <Request 'http://127.0.0.1:5000/points/earn' [POST]>
+2025-02-10 20:26:15,864 - DEBUG - Request files: ImmutableMultiDict([('receipt', <FileStorage: '20_15_CSS_QC_Dashboard.png' ('image/jpeg')>)])
+2025-02-10 20:26:15,864 - DEBUG - Request form: ImmutableMultiDict([('csrf_token', 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6pg4w.MRHiRBxfFIOa2NqcInOdU9qFtuA'), ('predefined_code', 'WINDOW-FRONT'), ('code', '')])
+2025-02-10 20:26:15,865 - DEBUG - Request values: CombinedMultiDict([ImmutableMultiDict([]), ImmutableMultiDict([('csrf_token', 'ImU2Njc4OTkwMjg2N2RmMTRlOGJlMmJhYjJlYjA4OGNiYmUwMWZjZDMi.Z6pg4w.MRHiRBxfFIOa2NqcInOdU9qFtuA'), ('predefined_code', 'WINDOW-FRONT'), ('code', '')])])
+2025-02-10 20:26:16,471 - INFO - User tylerw@thefuturecomp.com successfully earned points for code WINDOW-FRONT at 2025-02-10 20:26:16.471368
+2025-02-10 20:28:43,997 - INFO - User tylerw@thefuturecomp.com logged out at 2025-02-10 20:28:43.997116
+2025-02-10 20:28:45,346 - INFO - User tylerw@thefuturecomp.com logged out at 2025-02-10 20:28:45.346163
